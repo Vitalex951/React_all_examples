@@ -24,8 +24,9 @@ export const PostForm: React.FC<PostFormPropsType> = ({createPost}) => {
     //button
     const createPostHandler = (e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault()
-        const newPost: PostType = {id: Date.now(), title: post.title, body: post.body}
+        const newPost: PostType = {id: 11, title: post.title, body: post.body}
         createPost(newPost)
+        setPost({title: '', body: ''})
     }
 
     //input
@@ -38,7 +39,7 @@ export const PostForm: React.FC<PostFormPropsType> = ({createPost}) => {
 
     return (
         <form>
-            {/*Управляемый комопнент*/}
+            {/*Управляемый компонент*/}
             <MyInput
                 value={post.title}
                 onChange={changeTitlePost}

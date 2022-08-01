@@ -20,14 +20,13 @@ export const PostList: React.FC<PostListPropsType> = ({posts, title, removePost}
 
             <TransitionGroup>
 
-                {posts.map((el, i) =>
+                {posts.map(el =>
                     <CSSTransition
                         key={el.id}
                         timeout={500}
                         classNames="post"
                     >
                         <PostItem
-                            number={i + 1}
                             post={el}
                             removePost={removePost}
                         />

@@ -1,15 +1,21 @@
 import {instance} from "./index";
 import {AxiosResponse} from "axios";
 import {PostType} from "../UI/PostItem";
+import {CommentsType, PostIdType} from "../../pages/PostIdPage";
 
 export const editProfileApi = {
-    async getPosts(limit: number = 10, page: number = 10) {
-        const response = await instance.get<{ id: string }, AxiosResponse<PostType[]>>("/posts", {
+    getPosts(limit: number = 10, page: number = 10) {
+        return instance.get<{ limit: number, page: number }, AxiosResponse<PostType[]>>("/posts", {
             params: {
                 _limit: limit,
                 _page: page
             }
         })
-        return response
-    }
+    },
+    getPostsById(id: string) {
+        return instance.get<{ id: string }, AxiosResponse<PostIdType>>(`/posts/${id}`)
+    },
+    getCommentsByPostsById(id: string) {
+        return instance.get<{ id: string }, AxiosResponse<CommentsType[]>>(`/posts/${id}/comments`)
+    },
 }

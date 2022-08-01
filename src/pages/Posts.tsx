@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import '../styles/App.css'
 import {Pagination} from "../components/UI/Pagination";
 import {PostType} from "../components/UI/PostItem";
@@ -12,8 +12,6 @@ import {MyButton} from "../components/UI/button/MyButton";
 import {useFetching} from "../components/hooks/useFetching";
 import {editProfileApi} from "../components/api/PostsService";
 import {PostFilter} from "../components/UI/PostFilter";
-import {AuthContext} from "../context/context";
-import {useNavigate} from "react-router-dom";
 
 
 export type FilterType = {
@@ -32,6 +30,10 @@ export const Posts = () => {
 
     const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query)
 
+    const lastElement = useRef<HTMLDivElement>(null)
+    const observer = useRef<IntersectionObserver | null>(null);
+
+
     const [fetchPosts, isPostsLoading, postError] = useFetching(async () => {
         const response = await editProfileApi.getPosts(limit, page)
         if (posts) {
@@ -45,6 +47,20 @@ export const Posts = () => {
         // @ts-ignore
         fetchPosts()
     }, [page])
+
+    useEffect(()=> {
+        if(isPostsLoading) return
+        if(observer.current) observer.current?.disconnect()
+        // @ts-ignore
+        var callback = function(entries, observer) {
+            if( entries[0].isIntersecting && page < totalPages) {
+            setPage(page + 1)
+            }
+        };
+        observer.current = new IntersectionObserver(callback);
+        // @ts-ignore
+        observer.current?.observe(lastElement.current)
+    }, [isPostsLoading])
 
     //buttons
     const createPost = (newPost: PostType) => {
@@ -91,6 +107,7 @@ export const Posts = () => {
                 title={'Посты про JS'}
                 removePost={removePost}
             />
+            <div ref={lastElement} style={{height: 20, background: "gold"}}></div>
 
 
             <Pagination

@@ -56,18 +56,7 @@
     font-weight: bold;
 }
 
-.navbar {
-    height: 50px;
-    width: 100vw;
-    display: flex;
-    align-items: center;
-    padding: 0 15px;
-    background: lightblue;
-}
 
-.navbar__links {
-    margin-left: auto;
-}
 
 .error {
 color: red;

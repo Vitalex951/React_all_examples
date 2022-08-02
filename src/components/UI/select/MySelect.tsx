@@ -4,18 +4,18 @@ type MySelectPropsType = {
     defaultValue: string
     options: OptionType[]
     value: string
-    sortPosts: (value: string) => void
+    onChange: (value: string) => void
 }
 
-type OptionType = {
+export type OptionType = {
     value: string
     name: string
 }
 
 
-export const MySelect: React.FC<MySelectPropsType> = ({options, defaultValue, value, sortPosts}) => {
+export const MySelect: React.FC<MySelectPropsType> = ({options, defaultValue, value, onChange}) => {
     const onChangeSelectHandler = (e: ChangeEvent<HTMLSelectElement>) => {
-        sortPosts(e.currentTarget.value)
+        onChange(e.currentTarget.value)
     }
 
     return (

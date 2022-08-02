@@ -25,7 +25,7 @@ export const PostFilter: React.FC<PostFilterPropsType> = ({filter, setFilter}) =
                 onChange={onChangeSearchValue}
             />
             <MySelect value={filter.sort}
-                      sortPosts={onChangeSelectValue}
+                      onChange={onChangeSelectValue}
                       options={[
                           {value: 'title', name: 'По названию'},
                           {value: 'body', name: 'По описанию'},

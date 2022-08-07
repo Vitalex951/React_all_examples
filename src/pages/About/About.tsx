@@ -27,7 +27,7 @@ export const About = () => {
                     <li>Навигация при помощи Rect Router Dom</li>
                     <li>Мемоизация / Кеширование</li>
                     <li>Управляемый / Неуправляемый компонент </li>
-                    <li>Обработку ошибок</li>
+                    <li>Обработка ошибок</li>
                 </ul>
             </div>
             <MyButton onClick={goToPagePosts}> Перейти к странице Постов</MyButton>

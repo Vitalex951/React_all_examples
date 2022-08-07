@@ -1,5 +1,6 @@
 import React from 'react';
-import {PostItem, PostType} from "./PostItem";
+import {PostItem, PostType} from "../PostItem/PostItem";
+import style from './PostList.module.css'
 import {TransitionGroup, CSSTransition} from "react-transition-group";
 
 type PostListPropsType = {
@@ -10,16 +11,14 @@ type PostListPropsType = {
 
 export const PostList: React.FC<PostListPropsType> = ({posts, title, removePost}) => {
     if (!posts.length) {
-        return <h1 style={{textAlign: 'center'}}>Посты не найдены!</h1>
+        return <h1 className={style.title}>Посты не найдены!</h1>
     }
     return (
         <div>
-            <h1 style={{textAlign: "center"}}>
+            <h1 className={style.title}>
                 {title}
             </h1>
-
             <TransitionGroup>
-
                 {posts.map(el =>
                     <CSSTransition
                         key={el.id}
@@ -32,7 +31,6 @@ export const PostList: React.FC<PostListPropsType> = ({posts, title, removePost}
                         />
                     </CSSTransition>
                 )}
-
             </TransitionGroup>
 
         </div>

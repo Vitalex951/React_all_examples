@@ -1,7 +1,8 @@
 import React from 'react';
-import {MyButton} from "./button/MyButton";
-import '../../styles/App.css'
+import {MyButton} from "../button/MyButton";
+import style from './PostItem.module.css'
 import {useNavigate} from "react-router-dom";
+
 
 type PostItemsFromProps = {
     post: PostType
@@ -21,14 +22,16 @@ export const PostItem: React.FC<PostItemsFromProps> = ({post, removePost}) => {
         removePost(post.id)
     }
     return (
-        <div className="post">
-            <div className="post__content">
-                <strong>{post.id}. {post.title}</strong>
-                <div>
+        <div className={style.post}>
+            <div>
+                <h4>
+                    <span> {post.id})</span> {post.title}
+                </h4>
+                <div className={style.body}>
                     {post.body}
                 </div>
             </div>
-            <div className="post__btns">
+            <div className={style.postBtns}>
                 <MyButton onClick={() => navigate(`/posts/${post.id}`)}>Открыть</MyButton>
                 <MyButton onClick={removePostHandler}>Удалить</MyButton>
             </div>

@@ -1,19 +1,18 @@
-import React, {RefObject, useEffect, useRef, useState} from 'react';
-import '../styles/App.css'
-import {Pagination} from "../components/UI/Pagination";
-import {PostType} from "../components/UI/PostItem";
-import {getPageCount} from "../components/utils/pages";
-import {usePosts} from "../components/hooks/usePost";
-import {PostForm} from "../components/UI/PostForm";
-import {Loader} from "../components/UI/loader/Loader";
-import {MyModal} from "../components/UI/modal/MyModal";
-import {PostList} from "../components/UI/PostList";
-import {MyButton} from "../components/UI/button/MyButton";
-import {useFetching} from "../components/hooks/useFetching";
-import {editProfileApi} from "../components/api/PostsService";
-import {PostFilter} from "../components/UI/PostFilter";
-import {useObserver} from "../components/hooks/useObserver";
-import {MySelect, OptionType} from "../components/UI/select/MySelect";
+import React, {useEffect, useRef, useState} from 'react';
+import '../../styles/App.css'
+import {Pagination} from "../../components/UI/Pagination";
+import {PostType} from "../../components/UI/PostItem/PostItem";
+import {getPageCount} from "../../components/utils/pages";
+import {usePosts} from "../../components/hooks/usePost";
+import {PostForm} from "../../components/UI/PostForm";
+import {Loader} from "../../components/UI/loader/Loader";
+import {MyModal} from "../../components/UI/modal/MyModal";
+import {PostList} from "../../components/UI/PostList/PostList";
+import {MyButton} from "../../components/UI/button/MyButton";
+import {useFetching} from "../../components/hooks/useFetching";
+import {editProfileApi} from "../../components/api/PostsService";
+import {PostFilter} from "../../components/UI/PostFilter";
+import {useObserver} from "../../components/hooks/useObserver";
 
 
 export type FilterType = {
@@ -29,7 +28,9 @@ export const Posts = () => {
     const [limit, setLimit] = useState<string>('10')
     const [page, setPage] = useState<number>(1)
     const [dynamicPagination, setDynamicPagination] = useState<boolean>(true)
+
     const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query)
+
     const lastElement = useRef<HTMLDivElement | null>(null)
 
 
@@ -54,7 +55,7 @@ export const Posts = () => {
     }, [page, limit, dynamicPagination])
 
 
-    useObserver(lastElement, page < totalPages, isPostsLoading, () => {
+    useObserver(lastElement, page < totalPages, isPostsLoading, filter.query, () => {
         setPage(page + 1)
     })
 
@@ -78,47 +79,40 @@ export const Posts = () => {
     }
     const changePage = (page: number) => {
         setPage(page)
+        setFilter({...filter, query: ''})
     }
     const changeDynamicPagination = () => {
         setDynamicPagination(!dynamicPagination)
 
     }
 
-    //Select
-    const optionsValue: OptionType[] = [
-        {value: '5', name: '5'},
-        {value: '10', name: '10'},
-        {value: '25', name: '25'},
-        {value: '-1', name: 'Показать все'},
-    ]
-    const onChangeSelectValueLimit = (value: string) => {
-        setLimit(value)
-    }
-
-
     // const bodyInputRef = useRef<HTMLInputElement>(null)
 
     return (
-        <div>
+        <div className='container'>
 
-            <MyButton style={{marginTop: 30}} onClick={showModalHandler}>
-                Создать пост
-            </MyButton>
-            <MyButton onClick={changeDynamicPagination}>
-                {dynamicPagination ? 'Обычная пагинация' : 'Динамическая пагинация'}
-            </MyButton>
-            <MyModal visible={modal} setVisible={setModal}>
-                <PostForm createPost={createPost}/>
-            </MyModal>
+            <div className='block'>
+                <div>
+                    <MyButton style={{marginTop: 30}} onClick={showModalHandler}>
+                        Создать пост
+                    </MyButton>
+                    <MyButton onClick={changeDynamicPagination}>
+                        {dynamicPagination ? 'Постраничная пагинация' : 'Динамическая пагинация'}
+                    </MyButton>
+                </div>
+                <MyModal visible={modal} setVisible={setModal}>
+                    <PostForm createPost={createPost}/>
+                </MyModal>
+                <PostFilter
+                    filter={filter}
+                    setFilter={setFilter}
+                    setLimit={setLimit}
+                    limit={limit}
+                />
+            </div>
 
             <hr style={{margin: '15px'}}/>
-            <PostFilter filter={filter} setFilter={setFilter}/>
-            <MySelect
-                defaultValue='Количество элементов на странице'
-                options={optionsValue}
-                value={limit}
-                onChange={onChangeSelectValueLimit}
-            />
+
 
             {postError && <h1>postError</h1>}
 
@@ -129,7 +123,10 @@ export const Posts = () => {
                 removePost={removePost}
             />
 
-            {dynamicPagination && <div ref={lastElement}></div>}
+            {filter.query === ''
+                && dynamicPagination
+                && <div
+                    ref={lastElement}></div>}
 
 
             <Pagination

@@ -1,7 +1,7 @@
 import {instance} from "./index";
 import {AxiosResponse} from "axios";
-import {PostType} from "../UI/PostItem";
-import {CommentsType, PostIdType} from "../../pages/PostIdPage";
+import {PostType} from "../UI/PostItem/PostItem";
+import {CommentsType, PostIdType} from "../../pages/PostIdPage/PostIdPage";
 
 export const editProfileApi = {
     getPosts(limit: number = 10, page: number = 10) {

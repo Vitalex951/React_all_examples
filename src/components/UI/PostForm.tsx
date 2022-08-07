@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useState} from 'react';
 import {MyInput} from "./input/MyInput";
 import {MyButton} from "./button/MyButton";
-import {PostType} from "./PostItem";
+import {PostType} from "./PostItem/PostItem";
 
 
 type InitialPostType = {
@@ -19,7 +19,6 @@ export const PostForm: React.FC<PostFormPropsType> = ({createPost}) => {
         title: '',
         body: '',
     })
-
 
     //button
     const createPostHandler = (e: React.MouseEvent<HTMLElement>) => {
@@ -50,7 +49,7 @@ export const PostForm: React.FC<PostFormPropsType> = ({createPost}) => {
                 value={post.body}
                 onChange={changeBodyPost}
                 type="text"
-                placeholder="Название поста"/>
+                placeholder="Описание поста"/>
 
             {/*/!*Неуправляемый комопнент*!/*/}
             {/*<MyInput*/}

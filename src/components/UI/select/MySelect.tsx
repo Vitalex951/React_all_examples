@@ -1,4 +1,6 @@
 import React, {ChangeEvent} from 'react';
+import style from './MySelect.module.css';
+
 
 type MySelectPropsType = {
     defaultValue: string
@@ -19,9 +21,10 @@ export const MySelect: React.FC<MySelectPropsType> = ({options, defaultValue, va
     }
 
     return (
-        <div>
+        <div className={style.container}>
             <select value={value}
-                    onChange={onChangeSelectHandler}>
+                    onChange={onChangeSelectHandler}
+                    className={style.selectCss}>
                 <option disabled value=''>{defaultValue}</option>
                 {options.map(option =>
                     <option key={option.value} value={option.value}>

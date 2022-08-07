@@ -1,10 +1,10 @@
-import {Posts} from "../pages/Posts";
-import {About} from "../pages/About";
-import {PostIdPage} from "../pages/PostIdPage";
+import {Posts} from "../pages/Posts/Posts";
+import {About} from "../pages/About/About";
+import {PostIdPage} from "../pages/PostIdPage/PostIdPage";
 import {Navigate} from "react-router-dom";
 import React from "react";
 import {Error} from "../pages/Error";
-import {Login} from "../pages/Login";
+import {Login} from "../pages/login/Login";
 
 export const privateRouters = [
     {path: '/about', component: <About/>},

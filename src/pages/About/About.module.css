@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap');
+.container {
+    min-width: 300px;
+    margin-top: 30px;
+    font-family: 'Rubik', sans-serif;
+}
+.container ul {
+    margin: 20px;
+}
+.container li {
+    margin: 10px;
+}
+.container h1 {
+    margin: 20px;
+}
+.container  ul li {
+    list-style-type: none;
+    font-size: 18px;
+}
+
+.container ul li:before {
+    content: counter(item, disc) " ";
+    color: red;
+}
+
+

@@ -2,18 +2,22 @@
 
 .navbar {
     height: 50px;
-    width: 100vw;
+    width: 100%;
     display: flex;
     align-items: center;
+    justify-content: center;
     padding: 0 15px;
     background: lightblue;
 }
-
+.navbar {
+    margin-right: 5px;
+}
 .navbar__links {
     min-width: 50px;
+    margin: 10px;
     text-align: center;
     font-family: 'Alegreya', serif;
-    font-size: 18px;
+    font-size: 20px;
     color: blue;
     text-decoration: none;
     font-weight: 300;
@@ -21,6 +25,7 @@
 }
 
 .nav {
+    max-width:800px;
     display: flex;
     justify-content: right;
     align-items: center;
@@ -29,6 +34,8 @@
 }
 
 .navbar__linksActive {
-    color: orange;
     font-weight: 400;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: rgba(255,255,255,0.43);
 }
